@@ -1,0 +1,5 @@
+eventlet_log (0.0.1) squeeze; urgency=low
+
+  * Initial commit.
+
+ -- Roma Sokolov <sokolov.r.v@gmail.com>  Sun, 23 Sep 2012 22:00:03 +0400
