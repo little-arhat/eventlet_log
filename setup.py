@@ -19,6 +19,7 @@ setup(
     packages=[
         'eventlet_log'
     ],
+    install_requires=['eventlet'],
     license='MIT',
     classifiers=(
         'Development Status :: 3 - Alpha',
