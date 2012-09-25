@@ -6,14 +6,13 @@ try:
 except ImportError:
     from distutils.core import setup
 
-import eventlet_log
 
 setup(
     name='eventlet_log',
-    version=eventlet_log.__version__,
+    version='0.0.1',
     description='''Damn simple logging wrapper compatible with eventlet.''',
     long_description=open('README.rst').read(),
-    author=eventlet_log.__author__,
+    author='Roma Sokolov',
     author_email='sokolov.r.v@gmail.com',
     url='https://github.com/little-arhat/eventlet_log',
     packages=[
