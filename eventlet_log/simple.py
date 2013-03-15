@@ -10,6 +10,20 @@ logging.threading = eventlet.green.threading
 logging._lock = logging.threading.RLock()
 
 
+def create_generic_logger(name, handler, format, level):
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+    handler.setLevel(level)
+    formatter = logging.Formatter(format)
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+
+    log = logger.info
+    log_exc = logger.exception
+
+    return (log, log_exc, logger)
+
+
 def create_logger(name, format='%(message)s', level=logging.DEBUG):
     '''
     Create eventlet compatible logger with given *name*, *format* and
@@ -21,15 +35,10 @@ def create_logger(name, format='%(message)s', level=logging.DEBUG):
       log_exc is wrapper around *logger.excption*
       logger -- is logger itself
     '''
-    logger = logging.getLogger(name)
-    logger.setLevel(level)
-    handler = logging.StreamHandler()
-    handler.setLevel(level)
-    formatter = logging.Formatter(format)
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
+    return create_generic_logger(name, logging.StreamHandler(),
+                                 format, level)
 
-    log = logger.info
-    log_exc = logger.exception
-
-    return (log, log_exc, logger)
+def create_file_logger(name, filename,
+                       format='%(message)s', level=logging.DEBUG):
+    return create_generic_logger(name, logging.FileHandler(filename),
+                                 format, level)
