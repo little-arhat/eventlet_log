@@ -38,7 +38,29 @@ def create_logger(name, format='%(message)s', level=logging.DEBUG):
     return create_generic_logger(name, logging.StreamHandler(),
                                  format, level)
 
+
+__KEEP_FILEHANDLERS = False
+
+def switch_keeping_filehandlers(boolval):
+    global __KEEP_FILEHANDLERS
+    __KEEP_FILEHANDLERS = bool(boolval)
+
+__filehandlers = {}
+
 def create_file_logger(name, filename,
                        format='%(message)s', level=logging.DEBUG):
-    return create_generic_logger(name, logging.FileHandler(filename),
+    handler = logging.FileHandler(filename)
+    if __KEEP_FILEHANDLERS:
+        __filehandlers[(name, filename)] = handler
+    return create_generic_logger(name, handler,
                                  format, level)
+
+def stop_file_logger(name, filename):
+    if (name, filename) in __filehandlers:
+        logger = logging.getLogger(name)
+        handler = __filehandlers[(name, filename)]
+        logger.removeHandler(handler)
+        del __filehandlers[(name, filename)]
+    else:
+        raise Exception('No such handler registered: %s , %s' \
+                         % (name, filename))
