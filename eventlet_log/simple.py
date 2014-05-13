@@ -60,6 +60,7 @@ def stop_file_logger(name, filename):
         logger = logging.getLogger(name)
         handler = __filehandlers[(name, filename)]
         logger.removeHandler(handler)
+        del __filehandlers[(name, filename)]
     else:
         raise Exception('No such handler registered: %s , %s' \
                          % (name, filename))
