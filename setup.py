@@ -9,7 +9,7 @@ except ImportError:
 
 setup(
     name='eventlet_log',
-    version='0.0.3',
+    version='0.0.4',
     description='''Damn simple logging wrapper compatible with eventlet.''',
     long_description=open('README.rst').read(),
     author='Roma Sokolov',

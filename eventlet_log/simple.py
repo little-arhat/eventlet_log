@@ -59,6 +59,7 @@ def stop_file_logger(name, filename):
     if (name, filename) in __filehandlers:
         logger = logging.getLogger(name)
         handler = __filehandlers[(name, filename)]
+        handler.close()
         logger.removeHandler(handler)
         del __filehandlers[(name, filename)]
     else:

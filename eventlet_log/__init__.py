@@ -7,7 +7,7 @@ from .simple import create_logger, create_file_logger, \
                     stop_file_logger
 
 
-__all__ = ('create_logger', 
+__all__ = ('create_logger',
            'create_file_logger',
            'stop_file_logger',
            'switch_keeping_filehandlers')
